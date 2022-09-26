@@ -1,3 +1,4 @@
+using Lunity.AudioVis;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,9 @@ public class KochLine : KochGenerator
     Vector3[] _lerpPosition;
 
     [Header("Audio")]
-    public AudioPeer _audioPeer;
-    public int _audioBand;
+    public SoundCapture _soundCapture;
+    public AudioAverageSet _audioAverageSet;
+    //public int _audioBand;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,8 @@ public class KochLine : KochGenerator
         {
             for (int i = 0; i < _position.Length; i++)
             {
-                _lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], _audioPeer._audioBandBuffer[_audioBand]);
+                //_lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], _soundCapture.PeakVolume);
+                _lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], _audioAverageSet.Momentary);
             }
             if (_useBezierCurves)
             {

@@ -148,7 +148,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153177668}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cde062cd9dc077b4c8ed69644471b6bf, type: 3}
@@ -282,6 +282,28 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+--- !u!114 &340443923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 487844790668310523, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+  m_PrefabInstance: {fileID: 1616748391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b30020dfe02cdb4bbe28639569c0910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &340443924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 487844790668310521, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+  m_PrefabInstance: {fileID: 1616748391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f02d1341ed26c40b74af1242da228e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &507732278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3696836228698341547, guid: 5aa347191a7006f4b905d1d1d48a3337, type: 3}
@@ -465,6 +487,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1001 &1616748391
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 487844790668310518, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_Name
+      value: SoundCapture
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 19.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310520, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310521, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: FftBinCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310523, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: DataSource
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 487844790668310523, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
+      propertyPath: FrequencyBin
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 679a8ee365df9c74db4528787b356e11, type: 3}
 --- !u!1 &1843040178
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,26 +696,35 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
+      inSlope: 3.030303
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.32722726
+      time: 0.33
       value: 0
       inSlope: -0
-      outSlope: 1.4469875
+      outSlope: 83.33358
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5
+      time: 0.333
       value: 0.25
-      inSlope: 1.4469875
-      outSlope: -1.5624998
+      inSlope: 83.33358
+      outSlope: 0
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.659
+      value: 0.25
+      inSlope: -0
+      outSlope: -249.98831
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
@@ -632,7 +732,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.66
       value: 0
-      inSlope: -1.5624998
+      inSlope: -249.98831
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -641,9 +741,9 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0
+      inSlope: 0
       outSlope: 0
-      tangentMode: 69
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0
@@ -652,15 +752,13 @@ MonoBehaviour:
     m_RotationOrder: 4
   _startGen:
   - outwards: 1
-    scale: 5
-  - outwards: 1
-    scale: 3
-  _useBezierCurves: 1
-  _bezierVertexCount: 10
-  _initiatorSize: 2
-  _generateMultiplier: 5
-  _audioPeer: {fileID: 153177671}
-  _audioBand: 1
+    scale: 1
+  _useBezierCurves: 0
+  _bezierVertexCount: 15
+  _initiatorSize: 4
+  _generateMultiplier: 2
+  _soundCapture: {fileID: 340443924}
+  _audioAverageSet: {fileID: 340443923}
 --- !u!120 &2122728953
 LineRenderer:
   m_ObjectHideFlags: 0
