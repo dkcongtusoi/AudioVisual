@@ -34,6 +34,15 @@ public class KochGenerator : MonoBehaviour
     protected _initiator initiator = new _initiator();
     [SerializeField]
     protected AnimationCurve _generator;
+
+    [System.Serializable]
+    public struct StartGen
+    {
+        public bool outwards;
+        public float scale;
+    }
+    public StartGen[] _startGen;
+
     protected Keyframe[] _keys;
     [SerializeField]
     protected bool _useBezierCurves;
@@ -93,6 +102,11 @@ public class KochGenerator : MonoBehaviour
         _position[_initiatorPointAmount] = _position[0];
 
         _targetPosition = _position;
+
+        for (int i = 0; i < _startGen.Length; i++)
+        {
+            KochGenerate(_targetPosition, _startGen[i].outwards, _startGen[i].scale);
+        }
     }
     
     protected void KochGenerate(Vector3[] positions, bool outwards, float generatorMultiplier)

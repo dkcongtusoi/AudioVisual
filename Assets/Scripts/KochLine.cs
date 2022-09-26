@@ -6,10 +6,14 @@ using UnityEngine;
 public class KochLine : KochGenerator
 {
     LineRenderer _lineRenderer;
-    [Range(0,1)]
-    public float _lerpAmount;
+   //[Range(0,1)]
+   //public float _lerpAmount;
     public float _generateMultiplier;
     Vector3[] _lerpPosition;
+
+    [Header("Audio")]
+    public AudioPeer _audioPeer;
+    public int _audioBand;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,8 @@ public class KochLine : KochGenerator
         _lineRenderer.loop = true;
         _lineRenderer.positionCount = _position.Length;
         _lineRenderer.SetPositions(_position);
+        _lineRenderer.positionCount = _position.Length;
+        _lerpPosition = new Vector3[_position.Length];
     }
 
     // Update is called once per frame
@@ -28,7 +34,7 @@ public class KochLine : KochGenerator
         {
             for (int i = 0; i < _position.Length; i++)
             {
-                _lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], _lerpAmount);
+                _lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], _audioPeer._audioBandBuffer[_audioBand]);
             }
             if (_useBezierCurves)
             {
@@ -42,22 +48,6 @@ public class KochLine : KochGenerator
                 _lineRenderer.SetPositions(_lerpPosition);
             }
             
-        }
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            KochGenerate(_targetPosition, true, _generateMultiplier);
-            _lerpPosition = new Vector3[_position.Length];
-            _lineRenderer.positionCount = _position.Length;
-            _lineRenderer.SetPositions(_position);
-            _lerpAmount = 0;
-        }
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            KochGenerate(_targetPosition, false, _generateMultiplier);
-            _lerpPosition = new Vector3[_position.Length];
-            _lineRenderer.positionCount = _position.Length;
-            _lineRenderer.SetPositions(_position);
-            _lerpAmount = 0;
         }
     }
 }
