@@ -25,6 +25,7 @@ public class KochLine : KochGenerator
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         _lerpAudio = new float[_initiatorPointAmount];
         _lineRenderer = GetComponent<LineRenderer>();
         _lineRenderer.enabled = true;
