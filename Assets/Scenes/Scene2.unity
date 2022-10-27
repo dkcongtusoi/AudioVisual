@@ -345,7 +345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae32fba91103ff4db876ec0fa52cbd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circlePrefab: {fileID: 8290734955089814447, guid: e774c4d852d89b247a267b8856bea1e5, type: 3}
+  _circlePrefab: {fileID: 7928576334298416205, guid: 6f80077e33b448a4d99a9ac189e03df0, type: 3}
   _innerCircle: {x: 0, y: 0, z: 0, w: 3}
   _outterCircle: {x: 0, y: 0, z: 0, w: 10}
   _circleAmount: 32
+  _distOuterTangent: 0.1
+  _movementSmooth: 0.1
+  _radiusChangeSpeed: 4
