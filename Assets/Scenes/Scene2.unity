@@ -667,7 +667,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  _emissionMultiplier: 4
+  _emissionMultiplier: 2
   _emissionBuffer: 1
   _thresholdEmission: 0.015
   _rotateSpeed: 100
