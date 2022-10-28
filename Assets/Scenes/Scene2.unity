@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae32fba91103ff4db876ec0fa52cbd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circlePrefab: {fileID: 2433650572168672954, guid: d6af53386fdee494b959b2bcecbf7793, type: 3}
+  _circlePrefab: {fileID: 1183396875897153093, guid: d6af53386fdee494b959b2bcecbf7793, type: 3}
   _innerCircleRadius: 2
   _outterCircleRadius: 10
   _circleAmount: 64
@@ -612,3 +612,8 @@ MonoBehaviour:
   _rotateSpeed: 100
   _rotateBuffer: 1
   _captureMethod: 1
+  _scaleThreshold: 0
+  _scaleStart: 0.5
+  _scaleMinMax: {x: 0, y: 5}
+  _scaleYOnAudio: 1
+  _scaleBuffer: 1

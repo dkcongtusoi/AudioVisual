@@ -44,12 +44,13 @@ public class TangentCircles : CircleTangent
     public bool _captureMethod;
 
     [Header("Scale on Audio")]
-    public bool _scaleYOnAudio;
-    public bool _scalePeak;
     [Range(0, 1)]
-    public float _scaleThreshold;
+    public float _scaleThreshold;    
     public float _scaleStart;
     public Vector2 _scaleMinMax;
+    public bool _scaleYOnAudio;
+    public bool _scaleBuffer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +68,15 @@ public class TangentCircles : CircleTangent
             _material[i] = new Material(_materialBase);
             _material[i].EnableKeyword("_EMISSION");
             _material[i].SetColor("_Color", new Color(0, 0, 0));
-            _tangentObject[i].GetComponent<MeshRenderer>().material = _material[i];       
+            if (_tangentObject[i].GetComponent<MeshRenderer>())
+            {
+                _tangentObject[i].GetComponent<MeshRenderer>().material = _material[i];
+            }
+            else
+            {
+                _tangentObject[i].transform.GetChild(0).GetComponent<MeshRenderer>().material = _material[i];
+            }
+               
         }
     }
 
@@ -121,9 +130,20 @@ public class TangentCircles : CircleTangent
 
             if (_scaleYOnAudio)
             {
-                if (_soundCapture.BarData[i] > _scaleThreshold)
+                if (_soundCapture._audioBandBuffer[i] > _scaleThreshold)
                 {
-
+                    if (_scaleBuffer)
+                    {
+                        _tangentObject[i].transform.localScale = new Vector3(_tangentCircle[i].w, _scaleStart + Mathf.Lerp(_scaleMinMax.x, _scaleMinMax.y, _soundCapture._audioBandBuffer[i]), _tangentCircle[i].w) * 2;
+                    }
+                    else
+                    {
+                        _tangentObject[i].transform.localScale = new Vector3(_tangentCircle[i].w, _scaleStart + Mathf.Lerp(_scaleMinMax.x, _scaleMinMax.y, _soundCapture._audioBand[i]), _tangentCircle[i].w) * 2;
+                    }
+                }
+                else
+                {
+                    _tangentObject[i].transform.localScale = new Vector3(_tangentCircle[i].w, _scaleStart, _tangentCircle[i].w) * 2;
                 }
             }
             else
