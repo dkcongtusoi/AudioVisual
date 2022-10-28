@@ -1,3 +1,4 @@
+using Lunity.AudioVis;
 using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,35 +7,67 @@ using UnityEngine;
 
 public class TangentCircles : CircleTangent
 {
+    [Header("Setup")]
     public GameObject _circlePrefab;
     private GameObject _innerCircleGO, _outterCircleGO;
-    public Vector4 _innerCircle, _outterCircle;
+    private Vector4 _innerCircle, _outterCircle;
+    public float _innerCircleRadius, _outterCircleRadius;
     private Vector4[] _tangentCircle;
     private GameObject[] _tangentObject;
     [Range(1,64)]
     public int _circleAmount;
 
-    //INPUT
-    private Vector2 _tsL, _tsLSmooth;
-    [Range(0,1)]
+    [Header("Input")]
+    [Range(0, 1)]
     public float _distOuterTangent;
     [Range(0, 1)]
     public float _movementSmooth;
-    private float _radiusChange;
     [Range(0.1f, 10f)]
     public float _radiusChangeSpeed;
+    private Vector2 _tsL, _tsLSmooth;    
+    private float _radiusChange;
+
+    [Header("Audio Visuals")]
+    public AudioPeer _audioPeer;
+    public SoundCapture _soundCapture;
+    public AudioAverageSet _audioAverageSet;
+    public Material _materialBase;
+    private Material[] _material;
+    public Gradient _gradient;
+    public float _emissionMultiplier;
+    public bool _emissionBuffer;
+    [Range(0, 1)]
+    public float _thresholdEmission;
+    private float _rotateTangentObjects;
+    public float _rotateSpeed;
+    public bool _rotateBuffer;
+    public bool _captureMethod;
+
+    [Header("Scale on Audio")]
+    public bool _scaleYOnAudio;
+    public bool _scalePeak;
+    [Range(0, 1)]
+    public float _scaleThreshold;
+    public float _scaleStart;
+    public Vector2 _scaleMinMax;
     // Start is called before the first frame update
     void Start()
     {
-        //_innerCircleGO = (GameObject)Instantiate(_circlePrefab);
-        //_outterCircleGO = (GameObject)Instantiate(_circlePrefab);
+        _innerCircle = new Vector4(0, 0, 0, _innerCircleRadius);
+        _outterCircle = new Vector4(0, 0, 0, _outterCircleRadius);
+
         _tangentCircle = new Vector4[_circleAmount];
         _tangentObject = new GameObject[_circleAmount];
+        _material = new Material[_circleAmount];
         for (int i = 0; i < _circleAmount; i++)
         {
             GameObject tangentInstance = (GameObject)Instantiate(_circlePrefab);
             _tangentObject[i] = tangentInstance;
             _tangentObject[i].transform.parent = this.transform;
+            _material[i] = new Material(_materialBase);
+            _material[i].EnableKeyword("_EMISSION");
+            _material[i].SetColor("_Color", new Color(0, 0, 0));
+            _tangentObject[i].GetComponent<MeshRenderer>().material = _material[i];       
         }
     }
 
@@ -59,17 +92,90 @@ public class TangentCircles : CircleTangent
     void Update()
     {
         PlayerInput();
-       // _innerCircleGO.transform.position = new Vector3(_innerCircle.x, _innerCircle.y, _innerCircle.z);
-       // _innerCircleGO.transform.localScale = new Vector3(_innerCircle.w, _innerCircle.w, _innerCircle.w) * 2;
-       // _outterCircleGO.transform.position = new Vector3(_outterCircle.x, _outterCircle.y, _outterCircle.z);
-       // _outterCircleGO.transform.localScale = new Vector3(_outterCircle.w, _outterCircle.w, _outterCircle.w) * 2;
+        if (_captureMethod)
+        {
+            _rotateTangentObjects += _rotateSpeed * Time.deltaTime * _audioAverageSet.TenSecondAverage;
+        }
+        else
+        {
+            if (_rotateBuffer && _audioPeer._AmplitudeBuffer > 0)
+            {
+                _rotateTangentObjects += _rotateSpeed * Time.deltaTime * _audioPeer._AmplitudeBuffer;
+            }
+            else
+            {
+                if (_audioPeer._Amplitude > 0)
+                {
+                    _rotateTangentObjects += _rotateSpeed * Time.deltaTime * _audioPeer._Amplitude;
+                }
+            }
+        }
+
+
 
         for (int i = 0; i < _circleAmount; i++)
         {
-            _tangentCircle[i] = FindTangentCircle(_outterCircle, _innerCircle, (360f / _circleAmount) * i);
+            float deg = (360f / _circleAmount) * i + _rotateTangentObjects;
+            _tangentCircle[i] = FindTangentCircle(_outterCircle, _innerCircle, deg);
             _tangentObject[i].transform.position = new Vector3(_tangentCircle[i].x, _tangentCircle[i].y, _tangentCircle[i].z);
-            _tangentObject[i].transform.localScale = new Vector3(_tangentCircle[i].w, _tangentCircle[i].w, _tangentCircle[i].w) * 2;
-        }
 
+            if (_scaleYOnAudio)
+            {
+                if (_soundCapture.BarData[i] > _scaleThreshold)
+                {
+
+                }
+            }
+            else
+            {
+                _tangentObject[i].transform.localScale = new Vector3(_tangentCircle[i].w, _tangentCircle[i].w, _tangentCircle[i].w) * 2;
+            }
+
+            
+
+            if (_captureMethod)
+            {
+                /*if (_soundCapture.BarData[i] > _thresholdEmission)
+                {
+                    _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _soundCapture.BarData[i] * 2 * _emissionMultiplier);
+                }*/
+                if (_soundCapture._audioBandBuffer[i] > _thresholdEmission)
+                {
+                    if (_emissionBuffer)
+                    {
+                        _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _soundCapture._audioBandBuffer[i] * _emissionMultiplier);
+                    }
+                    else
+                    {
+                        _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _soundCapture._audioBand[i] * _emissionMultiplier);
+                    }
+                }
+                else
+                {
+                    _material[i].SetColor("_EmissionColor", new Color(0, 0, 0));
+                }
+
+            }
+            else
+            {
+                if (_audioPeer._audioBandBuffer64[i] > _thresholdEmission)
+                {
+                    if (_emissionBuffer)
+                    {
+                        _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _audioPeer._audioBandBuffer64[i] * _emissionMultiplier);
+                    }
+                    else
+                    {
+                        _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _audioPeer._audioBand64[i] * _emissionMultiplier);
+                    }
+                }
+                else
+                {
+                    _material[i].SetColor("_EmissionColor", new Color(0, 0, 0));
+                }
+            }
+            
+            
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Lunity.AudioVis
 
         [Header("Configuration")]
         [Range(3, 120)]
-        [Tooltip("Now many discrete frequency bands to use for visualization")]
+        [Tooltip("How many discrete frequency bands to use for visualization")]
         public int FftBinCount = 30;
 
         [Range(20, 20000)]
@@ -55,6 +55,15 @@ namespace Lunity.AudioVis
         [Tooltip("The output FFT data that can be used for audio visualization (read only)")]
         [Range(0f, 1f)]
         public float[] BarData;
+
+        [Header("Audio Bands")]
+        private float[] _freqBand;
+        private float[] _bandBuffer;
+        private float[] _bufferDecrease;
+        private float[] _freqBandHighest;
+
+        [HideInInspector]
+        public float[] _audioBand, _audioBandBuffer;
 
         SpectrumBase _spectrum;
         WasapiCapture _capture;
@@ -120,6 +129,15 @@ namespace Lunity.AudioVis
             }
         }
 
+        void Start()
+        {
+            _freqBand = new float[FftBinCount];
+            _bandBuffer = new float[FftBinCount];
+            _bufferDecrease = new float[FftBinCount];
+            _freqBandHighest = new float[FftBinCount];
+            _audioBand = new float[FftBinCount];
+            _audioBandBuffer = new float[FftBinCount];
+    }
         void Update()
         {
             //Starts audio capture if it's not already running
@@ -141,7 +159,11 @@ namespace Lunity.AudioVis
             }
             AverageVolume /= BarData.Length;
             AverageVolume = Mathf.Sqrt(AverageVolume);
+
+            BandBuffer();
+            CreateAudioBands();
         }
+
 
         private void Capture_DataAvailable(object sender, DataAvailableEventArgs e)
         {
@@ -151,6 +173,36 @@ namespace Lunity.AudioVis
         private void NotificationSource_SingleBlockRead(object sender, SingleBlockReadEventArgs e)
         {
             (_spectrum.SpectrumProvider as BasicSpectrumProvider)?.Add(e.Left, e.Right);
+        }
+
+        void CreateAudioBands()
+        {
+            for (int i = 0; i < BarData.Length; i++)
+            {
+                _freqBand[i] = BarData[i];
+                if (_freqBand[i] > _freqBandHighest[i])
+                {
+                    _freqBandHighest[i] = _freqBand[i];
+                }
+                _audioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
+                _audioBandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
+            }
+        }
+        void BandBuffer()
+        {
+            for (int g = 0; g < BarData.Length; g++)
+            {
+                if (_freqBand[g] > _bandBuffer[g])
+                {
+                    _bandBuffer[g] = _freqBand[g];
+                    _bufferDecrease[g] = 0.005f;
+                }
+                if (_freqBand[g] < _bandBuffer[g])
+                {
+                    _bandBuffer[g] -= _bufferDecrease[g];
+                    _bufferDecrease[g] *= 1.2f;
+                }
+            }
         }
 
         void OnDisable()
