@@ -29,9 +29,11 @@ This shader has NOT been tested on any other PC configuration except the followi
 ____________________________________________________________________________________________________________________________________________
 */
 
+using Lunity.AudioVis;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 //[ExecuteAlways]
 public class Plexus : MonoBehaviour
@@ -42,7 +44,9 @@ public class Plexus : MonoBehaviour
     public int PPPS = 2; // Processed Points Per Second
     public float lineWidth = 0.02f;
     public Material lineMaterial;
-    public Color _color;
+    public AudioAverageSet _audioAverageSet;
+    public Color _color1;
+    public Color _color2;
 
     public Vector3 box = new Vector3(4, 4, 4);
 
@@ -58,6 +62,8 @@ public class Plexus : MonoBehaviour
 
     private void Start()
     {
+        _color1 = new Color (1, 0, 0, 1);
+        _color2 = new Color (0, 0.8071177f, 1, 1);
         lineMaterial.SetVector("_BoxDims", new Vector4(box.x, box.y, box.z, 1));
 
         positions = new Vector3[amountOfPoints];
@@ -93,7 +99,10 @@ public class Plexus : MonoBehaviour
 
     private void Update()
     {
-        _color = lineMaterial.GetColor("_Emission2");
+        lineMaterial.SetColor("_Emission1", _color1 * _audioAverageSet.Momentary * 8);
+        lineMaterial.SetColor("_Emission2", _color2 * _audioAverageSet.Momentary * 8);
+
+        //lineMaterial.SetColor("_Color", _color * _audioAverageSet.Flicker * 5);
         MovePoints();
         RenderLines();
     }

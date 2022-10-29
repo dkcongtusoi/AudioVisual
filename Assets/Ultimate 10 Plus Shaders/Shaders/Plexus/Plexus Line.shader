@@ -39,6 +39,7 @@ Shader "Ultimate 10+ Shaders/Plexus Line"
 {
     Properties
     {
+        _FinalColor ("Final Color", Color) = (0, 1, 0, 1)
         _Color ("Color", Color) = (0, 1, 0, 1)
         [HDR] _Emission1 ("Emission1", Color) = (2.56, 0, 0, 1)
         [HDR] _Emission2 ("Emission2", Color) = (0, 1.95, 2.52, 1)
@@ -73,6 +74,7 @@ Shader "Ultimate 10+ Shaders/Plexus Line"
             };
 
             fixed4 _Color;
+            fixed4 _FinalColor;
             fixed4 _Emission1, _Emission2;
             half4 _BoxDims;
 
@@ -97,6 +99,8 @@ Shader "Ultimate 10+ Shaders/Plexus Line"
             fixed4 frag (v2f i) : SV_Target
             {
                 pixel = _Color + lerp(_Emission1, _Emission2, i.col);
+               // _FinalColor = pixel;
+                //pixel = _Color;
                 
                 return pixel;
             }
