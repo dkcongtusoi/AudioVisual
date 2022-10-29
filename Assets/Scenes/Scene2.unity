@@ -593,6 +593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1509352201}
   - component: {fileID: 1509352202}
+  - component: {fileID: 1509352203}
   m_Layer: 0
   m_Name: TangentCircles
   m_TagString: Untagged
@@ -627,7 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae32fba91103ff4db876ec0fa52cbd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circlePrefab: {fileID: 1183396875897153093, guid: d6af53386fdee494b959b2bcecbf7793, type: 3}
+  _circlePrefab: {fileID: 7928576334298416205, guid: 6f80077e33b448a4d99a9ac189e03df0, type: 3}
   _innerCircleRadius: 2
   _outterCircleRadius: 10
   _circleAmount: 64
@@ -667,6 +668,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
+  _plexus: {fileID: 1509352203}
   _emissionMultiplier: 2
   _emissionBuffer: 1
   _thresholdEmission: 0.015
@@ -678,6 +680,28 @@ MonoBehaviour:
   _scaleMinMax: {x: 0, y: 5}
   _scaleYOnAudio: 1
   _scaleBuffer: 1
+--- !u!114 &1509352203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509352200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bd5c73cd1c467458a55f95ff648743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plexus: {fileID: 7200000, guid: 0396ae06a645dc94696336944bc11f1f, type: 3}
+  amountOfPoints: 1000
+  PPPS: 5
+  lineWidth: 0.1
+  lineMaterial: {fileID: 2100000, guid: 046739a9e8dbba24e8183a7a3cdfbb9a, type: 2}
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  box: {x: 30, y: 30, z: 30}
+  particleSpeed: 20
+  maxConnDistance: 5
+  isEnabled: 0
 --- !u!1 &1889202202
 GameObject:
   m_ObjectHideFlags: 0

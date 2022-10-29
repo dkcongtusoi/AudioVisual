@@ -34,6 +34,7 @@ public class TangentCircles : CircleTangent
     public Material _materialBase;
     private Material[] _material;
     public Gradient _gradient;
+    public Plexus _plexus;
     public float _emissionMultiplier;
     public bool _emissionBuffer;
     [Range(0, 1)]
@@ -155,6 +156,7 @@ public class TangentCircles : CircleTangent
 
             if (_captureMethod)
             {
+                //_plexus.lineMaterial.SetVector("_Emission2", _plexus._color * _audioAverageSet.OneSecondAverage * _emissionMultiplier);
                 /*if (_soundCapture.BarData[i] > _thresholdEmission)
                 {
                     _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _soundCapture.BarData[i] * 2 * _emissionMultiplier);
@@ -164,6 +166,7 @@ public class TangentCircles : CircleTangent
                     if (_emissionBuffer)
                     {
                         _material[i].SetColor("_EmissionColor", _gradient.Evaluate((1f / _circleAmount) * i) * _soundCapture._audioBandBuffer[i] * _emissionMultiplier);
+                       
                     }
                     else
                     {
