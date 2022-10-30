@@ -26,7 +26,7 @@ Material:
     m_Colors:
     - _BoxDims: {r: 30, g: 30, b: 30, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Emission1: {r: 0, g: 0, b: 0, a: 0}
-    - _Emission2: {r: 0, g: 0, b: 0, a: 0}
+    - _Emission1: {r: 0.48488346, g: 0, b: 0, a: 0.48488346}
+    - _Emission2: {r: 0, g: 0.39135802, b: 0.48488346, a: 0.48488346}
     - _FinalColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
