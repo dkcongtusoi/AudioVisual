@@ -516,7 +516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343031504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22, y: 1, z: -30}
+  m_LocalPosition: {x: 0.22, y: 1, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -632,7 +632,7 @@ MonoBehaviour:
   _innerCircleRadius: 2
   _outterCircleRadius: 10
   _circleAmount: 64
-  _distOuterTangent: 0.15
+  _distOuterTangent: 0.1
   _movementSmooth: 0.2
   _radiusChangeSpeed: 4
   _audioPeer: {fileID: 871260970}
@@ -694,14 +694,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plexus: {fileID: 7200000, guid: 0396ae06a645dc94696336944bc11f1f, type: 3}
   amountOfPoints: 1000
-  PPPS: 5
+  PPPS: 10
   lineWidth: 0.1
   lineMaterial: {fileID: 2100000, guid: 046739a9e8dbba24e8183a7a3cdfbb9a, type: 2}
   _audioAverageSet: {fileID: 756617878}
   _color1: {r: 0, g: 0, b: 0, a: 0}
   _color2: {r: 0, g: 0, b: 0, a: 0}
   box: {x: 30, y: 30, z: 30}
-  particleSpeed: 20
+  particleSpeed: 12
   maxConnDistance: 5
   isEnabled: 0
 --- !u!1 &1889202202

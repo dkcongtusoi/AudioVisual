@@ -129,7 +129,7 @@ public class Plexus : MonoBehaviour
 
         plexus.SetFloat("deltaTime", Time.deltaTime);
         plexus.SetFloat("elapsedTime", Time.time);
-        plexus.SetFloat("particleSpeed", particleSpeed);
+        plexus.SetFloat("particleSpeed", particleSpeed * _audioAverageSet.OneSecondAverage);
 
         plexus.Dispatch(kernelIndex, positions.Length, 1, 1);
 
